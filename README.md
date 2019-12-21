@@ -17,7 +17,7 @@ pip install tobe
 ```bash
 # list
 ➜ tobe
-           Command Line SSH Quick Link to Server
+           Servers can be connected
   ID   Hostname            Host
    1   dev            39.10.14.9
    2   prod           192.68.5.31
