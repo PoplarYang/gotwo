@@ -1,6 +1,7 @@
-import tobe
+#!/usr/bin/env python3
+# coding=utf8
+
+from .tobe import run
 
 def main():
-    tobe.gather_ssh_info()
-    tobe.colorful_print()
-    #tobe.single_color_print()()
+    run()
