@@ -8,22 +8,11 @@ It's only a small tool.
 Read configration from `$HOME/.ssh/config`.
 
 ## Installation
+> python2 need to choose version 0.1.2, version above 0.2.0 only supports python3.
 
 ```python
 pip install tobe
 ```
 
 ## Usages
-```bash
-# list
-➜ tobe
-           Servers can be connected
-  ID   Hostname            Host
-   1   dev            39.10.14.9
-   2   prod           192.68.5.31
-version: 0.1.1
-date: 2019-12-21
-
-# connect
-➜ ssh dev
-```
+![](https://gitee.com/echohiyang/markdown-images/raw/master/kLYEjD.jpg)
