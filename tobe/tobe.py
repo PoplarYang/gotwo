@@ -4,104 +4,73 @@
 
 from __future__ import print_function
 from colorama import Fore,Back,init
+from sshconf import read_ssh_config
 import sys
 import os
 from bullet import Bullet
 import subprocess
 import pyfiglet
 
-__version__ = "0.2.1"
-__createdate__ = "2020-01-16"
 
-HOME = os.environ["HOME"]
-CONFIG_PATH = os.path.join(HOME, ".ssh", "config")
-user_info = {}
+__version__ = '0.3.1'
+__createdate__ = '2020-02-08'
+
+max_config_file_size_M = 10
+HOME = os.environ['HOME']
+CONFIG_PATH = os.path.join(HOME, '.ssh', 'config')
 init(autoreset=True)
 
 
-def gather_ssh_info():
-    """
-    gather ssh information
-    """
-    try:
-        with open(CONFIG_PATH) as fd:
-            for line in fd:
-                line = line.strip()
-                if line.startswith("Host ") and "*" not in line:
-                    hostname = line.split()[1]
-                if line.startswith("HostName") and "*" not in line:
-                    host = line.split()[1]
-                    if hostname and host:
-                        user_info[hostname] = host
-                    hostname = host = ""
-    except Exception as e:
-        print(Fore.RED + "Error, %s" %e)
+def preflight():
+    '''
+    preflight
+    '''
+    config_file_size_byte = os.path.getsize(CONFIG_PATH)
+    if config_file_size_byte > max_config_file_size_M * 1024 * 1024:
+        print('{}Config: {} size is more than {}M.'.format(Fore.RED, CONFIG_PATH, max_config_file_size_M))
         sys.exit(1)
-
-
-def colorful_print():
-    ascii_banner = pyfiglet.figlet_format("        SSH")
-    print(ascii_banner)
-    print("version: %s\ndate: %s" % (__version__, __createdate__))
-    print(Fore.GREEN + "  {0:>2}   {1:<15}{2:^15}".format("ID", "Hostname", "Host"))
-    count = 1
-    for hostname, host in user_info.items():
-        if count % 2 == 0:
-            print(Fore.GREEN + "  {0:>2}   {1:<15}{2:<20}".format(count, hostname, host))
-        else:
-            print(Fore.MAGENTA + "  {0:>2}   {1:<15}{2:<20}".format(count, hostname, host))
-        count += 1
-    print()
-
-
-def single_color_print():
-    ascii_banner = pyfiglet.figlet_format("        SSH")
-    print(ascii_banner)
-    print("version: %s\ndate: %s" % (__version__, __createdate__))
-    print("  {0:>2}   {1:<15}{2:^15}".format("ID", "Hostname", "Host"))
-    count = 1
-    for hostname, host in user_info.items():
-        print("  {0:>2}   {1:<15}{2:<20}".format(count, hostname, host))
-        count += 1
-    print()
 
 
 def bullet_print():
     info_list = []
-    for hostname, host in user_info.items():
-        item = "{0:<15} {1:<15}".format(hostname, host)
-        info_list.append(item) 
-    
+    config = read_ssh_config(CONFIG_PATH)
+    for host in config.hosts():
+        if host != '*':
+            item = '{0:<15} {1:<15.15} {2:<10.10}'.format(
+                    host,
+                    config.host(host)['hostname'],
+                    config.host(host).get('user', config.host('*').get('user', 'root'))
+                    )
+            info_list.append(item)
+
     info_list_sorted = sorted(info_list, key=lambda i:i[0])
 
-    ascii_banner = pyfiglet.figlet_format("            SSH")
+    ascii_banner = pyfiglet.figlet_format('            SSH')
     cli = Bullet(
-            # prompt="\nPlease choose a host: ",
+            # prompt='\nPlease choose a host: ',
             prompt=ascii_banner,
             choices=info_list_sorted,
             indent=0,        # 缩进
             align=5,
             margin=2,
             shift=0,
-            bullet="",      # 前缀
+            bullet='',       # 前缀
             pad_right=5
         )
     
     result = cli.launch()
-    print("You will connect to {}".format(result.split()[0]))
+    print('You will connect to {}'.format(result.split()[0]))
 
-    subprocess.call("ssh {} -o ConnectTimeout=3".format(result.split()[0]), shell=True,
+    subprocess.call('ssh {} -o ConnectTimeout=3'.format(result.split()[0]), shell=True,
                     stdin=sys.stdin, stdout=sys.stdout)
 
 
 def run():
-    gather_ssh_info()
     try: 
-        #single_color_print()
-        #colorful_print()
+        preflight()
         bullet_print()
     except KeyboardInterrupt:
-        print("exit")
+        print('exit')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     run()
