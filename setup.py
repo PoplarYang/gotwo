@@ -12,6 +12,11 @@ README = os.path.join(CUR_DIR, 'README.md')
 with open('README.md', 'r') as fd:
     long_description = fd.read()
 
+_locals = {}
+with open('tobe/version.py') as fd:
+    exec(fd.read(), None, _locals)
+version = _locals['__version__']
+
 # Arguments marked as 'Required' below must be included for upload to PyPI.
 # Fields marked as 'Optional' may be commented out.
 
@@ -37,13 +42,13 @@ setuptools.setup(
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
     # Required
-    version = '0.3.1',
+    version = version,
 
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the 'Summary' metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
     # Optional
-    description='A small ssh display tool',
+    description = 'A small ssh display tool',
 
     # This is an optional longer description of your project that represents
     # the body of text which users will see when they visit PyPI.
@@ -54,7 +59,7 @@ setuptools.setup(
     # This field corresponds to the 'Description' metadata field:
     # https://packaging.python.org/specifications/core-metadata/#description-optional
     # Optional
-    long_description=long_description,
+    long_description = long_description,
 
     # Denotes that our long_description is in Markdown; valid values are
     # text/plain, text/x-rst, and text/markdown
@@ -67,24 +72,24 @@ setuptools.setup(
     # This field corresponds to the 'Description-Content-Type' metadata field:
     # https://packaging.python.org/specifications/core-metadata/#description-content-type-optional
     # Optional
-    long_description_content_type='text/markdown',
+    long_description_content_type = 'text/markdown',
 
     # This should be a valid link to your project's main homepage.
     #
     # This field corresponds to the 'Home-Page' metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
     # Optional
-    url='https://github.com/PoplarYang/tobe',
+    url = 'https://github.com/PoplarYang/tobe',
 
     # This should be your name or the name of the organization which owns the
     # project.
     # Optional
-    author='PoplarYang',
+    author = 'PoplarYang',
 
     # This should be a valid email address corresponding to the author listed
     # above.
     # Optional
-    author_email='echohiyang@foxmail.com',
+    author_email = 'echohiyang@foxmail.com',
 
     # You can just specify package directories manually here if your project is
     # simple. Or you can use find_packages().
@@ -185,7 +190,7 @@ setuptools.setup(
     #
     # Note that this is a string of words separated by whitespace, not a list.
     # Optional
-    keywords='ssh linux', 
+    keywords = 'ssh linux', 
 
     # When your source code is in a subdirectory under the project root, e.g.
     # `src/`, it is necessary to specify the `package_dir` argument.
