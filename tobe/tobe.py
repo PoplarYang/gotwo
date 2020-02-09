@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # coding=utf8
-# __version__
+
 
 from __future__ import print_function
 from colorama import Fore,Back,init
@@ -12,65 +12,83 @@ import subprocess
 import pyfiglet
 
 
-__version__ = '0.3.1'
-__createdate__ = '2020-02-08'
-
 max_config_file_size_M = 10
 HOME = os.environ['HOME']
 CONFIG_PATH = os.path.join(HOME, '.ssh', 'config')
-init(autoreset=True)
 
 
-def preflight():
-    '''
-    preflight
-    '''
-    config_file_size_byte = os.path.getsize(CONFIG_PATH)
-    if config_file_size_byte > max_config_file_size_M * 1024 * 1024:
-        print('{}Config: {} size is more than {}M.'.format(Fore.RED, CONFIG_PATH, max_config_file_size_M))
+class ISSH:
+    __str = '{0:<15} {1:<15.15} {2:<10.10}'
+    __tip = '''
+Up/Down - Move selection up/down
+Enter   - Ssh to current selection
+Ctrl+c  - Quit
+'''
+    def __init__(self, config_path):
+        self.config_path = config_path
+        init(autoreset=True)
+
+    def run(self):
+        try: 
+            self.__check_if_ssh_config_exists()
+            self.__screen_print()
+        except KeyboardInterrupt:
+            self.__shutdown()
+
+    def __check_if_ssh_config_exists(self):
+        config_file_size_byte = os.path.getsize(self.config_path)
+        if config_file_size_byte > max_config_file_size_M * 1024 * 1024:
+            print('{}Config: {} size is more than {}M.'.format(Fore.RED, CONFIG_PATH, max_config_file_size_M))
+            sys.exit(1)
+    
+    def __shutdown(self):
+        print(Fore.RED + 'Exit.')
         sys.exit(1)
 
+    def __host_info(self):
+        info_list = []
+        config = read_ssh_config(self.config_path)
+        default_user = config.host("*").get('user', 'None')
 
-def bullet_print():
-    info_list = []
-    config = read_ssh_config(CONFIG_PATH)
-    for host in config.hosts():
-        if host != '*':
-            item = '{0:<15} {1:<15.15} {2:<10.10}'.format(
-                    host,
-                    config.host(host)['hostname'],
-                    config.host(host).get('user', config.host('*').get('user', 'root'))
-                    )
-            info_list.append(item)
-
-    info_list_sorted = sorted(info_list, key=lambda i:i[0])
-
-    ascii_banner = pyfiglet.figlet_format('            SSH')
-    cli = Bullet(
-            # prompt='\nPlease choose a host: ',
-            prompt=ascii_banner,
-            choices=info_list_sorted,
-            indent=0,        # 缩进
-            align=5,
-            margin=2,
-            shift=0,
-            bullet='',       # 前缀
-            pad_right=5
-        )
+        for host in config.hosts():
+            if host != '*':
+                item = self.__str.format(
+                        host,
+                        config.host(host)['hostname'],
+                        config.host(host).get('user', default_user)
+                        )
+                info_list.append(item)
     
-    result = cli.launch()
-    print('You will connect to {}'.format(result.split()[0]))
+        self.host_info_sorted = sorted(info_list, key=lambda i:i[0])
 
-    subprocess.call('ssh {} -o ConnectTimeout=3'.format(result.split()[0]), shell=True,
-                    stdin=sys.stdin, stdout=sys.stdout)
+    def __screen_print(self):
+        '''
+        screen print used by bullet
+        '''
+        self.__host_info()
 
+        ascii_banner = Fore.YELLOW + pyfiglet.figlet_format('            SSH') + \
+                Fore.GREEN + self.__tip + \
+                Fore.BLUE + self.__str.format('HostName', 'Address', 'User')
+        cli = Bullet(
+                # prompt='\nPlease choose a host: ',
+                prompt=ascii_banner,
+                choices=self.host_info_sorted,
+                indent=0,        # 缩进
+                align=0,
+                margin=0,
+                shift=0,
+                bullet='',       # 前缀
+                pad_right=5
+            )
 
-def run():
-    try: 
-        preflight()
-        bullet_print()
-    except KeyboardInterrupt:
-        print('exit')
+        result = cli.launch()
+        print(Fore.GREEN + 'You will connect to {}.'.format(result.split()[0]))
+        print()
+        subprocess.call('ssh {} -o ConnectTimeout=3'.format(result.split()[0]), shell=True,
+                        stdin=sys.stdin, stdout=sys.stdout)
+
 
 if __name__ == '__main__':
-    run()
+    ssh = ISSH(CONFIG_PATH)
+    ssh.run()

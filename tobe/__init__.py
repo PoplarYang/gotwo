@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # coding=utf8
 
-from .tobe import run
+from .tobe import ISSH, CONFIG_PATH
 
 def main():
-    run()
+    ssh = ISSH(CONFIG_PATH)
+    ssh.run()
+    
