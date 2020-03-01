@@ -38,8 +38,11 @@ Ctrl+c  - Quit
     def __check_if_ssh_config_exists(self):
         config_file_size_byte = os.path.getsize(self.config_path)
         if config_file_size_byte > max_config_file_size_M * 1024 * 1024:
-            print('{}Config: {} size is more than {}M.'.format(Fore.RED, CONFIG_PATH, max_config_file_size_M))
-            sys.exit(1)
+            print('{}Config: {} size is more than {}M.'.format(
+                Fore.RED, 
+                CONFIG_PATH, 
+                max_config_file_size_M))
+            self.__shutdown()
     
     def __shutdown(self):
         print(Fore.RED + 'Exit.')
@@ -67,12 +70,12 @@ Ctrl+c  - Quit
         '''
         self.__host_info()
 
-        ascii_banner = Fore.YELLOW + pyfiglet.figlet_format('            SSH') + \
+        banner = Fore.YELLOW + pyfiglet.figlet_format('            SSH') + \
                 Fore.GREEN + self.__tip + \
                 Fore.BLUE + self.__str.format('HostName', 'Address', 'User')
         cli = Bullet(
                 # prompt='\nPlease choose a host: ',
-                prompt=ascii_banner,
+                prompt=banner,
                 choices=self.host_info_sorted,
                 indent=0,        # 缩进
                 align=0,
@@ -85,8 +88,10 @@ Ctrl+c  - Quit
         result = cli.launch()
         print(Fore.GREEN + 'You will connect to {}.'.format(result.split()[0]))
         print()
-        subprocess.call('ssh {} -o ConnectTimeout=3'.format(result.split()[0]), shell=True,
-                        stdin=sys.stdin, stdout=sys.stdout)
+        subprocess.call('ssh {} -o ConnectTimeout=3'.format(result.split()[0]),
+                        shell=True,
+                        stdin=sys.stdin, 
+                        stdout=sys.stdout)
 
 
 if __name__ == '__main__':
