@@ -48,7 +48,7 @@ setuptools.setup(
     # corresponds to the 'Summary' metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
     # Optional
-    description = 'A small ssh display tool',
+    description = 'Interactive light-weight tool to connect server by ssh',
 
     # This is an optional longer description of your project that represents
     # the body of text which users will see when they visit PyPI.
