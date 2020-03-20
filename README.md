@@ -1,6 +1,6 @@
-# A light-weight ssh tool to connect server
+# Interactive light-weight tool to connect server by ssh
 
-It's only a small tool.
+It's only a lite tool.
 
 ## Principle
 Read configration from `$HOME/.ssh/config`.
@@ -9,11 +9,11 @@ Read configration from `$HOME/.ssh/config`.
 > python2 need to choose version below 0.1.2, version above 0.2.0 only supports python3.
 
 ```python
-pip install tobe
+pip install gto
 ```
 
 ```python
-python3 -m pip install tobe -i https://pypi.python.org/simple
+python3 -m pip install gto -i https://pypi.python.org/simple
 ```
 
 ## Usages

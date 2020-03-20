@@ -13,7 +13,7 @@ with open('README.md', 'r') as fd:
     long_description = fd.read()
 
 _locals = {}
-with open('tobe/version.py') as fd:
+with open('gto/version.py') as fd:
     exec(fd.read(), None, _locals)
 version = _locals['__version__']
 
@@ -33,7 +33,7 @@ setuptools.setup(
     # specification here:
     # https://packaging.python.org/specifications/core-metadata/#name
     # Required
-    name = 'tobe',
+    name = 'gto',
 
     # Versions should comply with PEP 440:
     # https://www.python.org/dev/peps/pep-0440/
@@ -79,7 +79,7 @@ setuptools.setup(
     # This field corresponds to the 'Home-Page' metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
     # Optional
-    url = 'https://github.com/PoplarYang/tobe',
+    url = 'https://github.com/PoplarYang/gto',
 
     # This should be your name or the name of the organization which owns the
     # project.
@@ -101,7 +101,7 @@ setuptools.setup(
     #   py_modules=['my_module'],
     #
     # Required
-    packages = ['tobe'],
+    packages = ['gto'],
     #packages=setuptools.find_packages(),
     
     # This field lists other packages that your project depends on to run.
@@ -128,7 +128,7 @@ setuptools.setup(
     # Optional
     entry_points={
         'console_scripts': [
-            'tobe=tobe:main'
+            'gto=gto:main'
         ],
     },
 

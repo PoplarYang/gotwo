@@ -1,0 +1,13 @@
+{
+    // Necessary for pipenv
+    "python.pythonPath": "/Users/yangyanan/.local/share/virtualenvs/tobe-lYBRc0Kz/bin/python",
+    // For unsolved-import
+    "python.jediEnabled": true,
+    // Limit for Editor windows
+    "workbench.editor.limit.value": 5,
+    // 
+    // "python.analysis.disabled": [ ],
+    // "python.venvPath": "/Users/yangyanan/.local/share/virtualenvs/",
+    // "python.pipenvPath": "/Users/yangyanan/Library/Python/2.7/bin/pipenv",
+    // "python.envFile": ".env",
+}
