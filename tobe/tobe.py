@@ -20,9 +20,10 @@ CONFIG_PATH = os.path.join(HOME, '.ssh', 'config')
 class ISSH:
     __str = '{0:<15} {1:<15.15} {2:<10.10}'
     __tip = '''
-Up/Down - Move selection up/down
-Enter   - Ssh to current selection
-Ctrl+c  - Quit
+🌻 Up/Down - Move selection up/down
+🌴 Enter   - Ssh to current selection
+🌵 Ctrl+c  - Quit
+🚀 Connecting to ...
 '''
     def __init__(self, config_path):
         self.config_path = config_path
@@ -45,7 +46,7 @@ Ctrl+c  - Quit
             self.__shutdown()
     
     def __shutdown(self):
-        print(Fore.RED + 'Exit.')
+        print(Fore.RED + '🐳Exit.')
         sys.exit(1)
 
     def __host_info(self):
