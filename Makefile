@@ -1,5 +1,5 @@
-PROG_NAME = tobe
-VERSION = v0.3.1
+PROG_NAME = gto
+VERSION = v0.1.0
 
 package:
 	@python setup.py sdist bdist_wheel
@@ -8,4 +8,4 @@ up:
 	@twine upload dist/*
 
 clean:
-	@rm -rf tobe.egg-info build dist
+	@rm -rf gto.egg-info build dist
