@@ -71,7 +71,7 @@ class ISSH:
         '''
         self.__host_info()
 
-        banner = Fore.YELLOW + pyfiglet.figlet_format('            SSH') + \
+        banner = Fore.YELLOW + pyfiglet.figlet_format('         GOTO') + \
                 Fore.GREEN + self.__tip + \
                 Fore.BLUE + self.__str.format('HostName', 'Address', 'User')
         cli = Bullet(
