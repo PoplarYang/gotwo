@@ -17,4 +17,21 @@ python3 -m pip install gotwo -i https://pypi.python.org/simple
 ```
 
 ## Usages
-![](https://gitee.com/echohiyang/markdown-images/raw/master/2020-03-20-%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_2fd0c5f3-e7d8-4346-825c-b7b05929f1e7.png)
+```bash
+➜  ~ goto
+           ____  ___ _____ ___  
+          / ___|/ _ \_   _/ _ \ 
+         | |  _| | | || || | | |
+         | |_| | |_| || || |_| |
+          \____|\___/ |_| \___/ 
+                                
+
+🌻 Up/Down - Move selection up/down
+🌴 Enter   - Ssh to current selection
+🌵 Ctrl+c  - Quit
+🚀 Connecting to ...
+HostName        Address         User      
+bcc             106.12.17.243   root                                            
+dahe            125.46.11.200   dahe           
+ecs2            106.15.39.96    root  
+```
