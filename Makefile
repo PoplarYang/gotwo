@@ -1,5 +1,4 @@
-PROG_NAME = gto
-VERSION = v0.1.0
+PROG_NAME = gotwo
 
 package:
 	@python setup.py sdist bdist_wheel
@@ -8,4 +7,4 @@ up:
 	@twine upload --verbose dist/*
 
 clean:
-	@rm -rf gto.egg-info build dist
+	@rm -rf gotwo.egg-info build dist
