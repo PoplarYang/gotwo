@@ -31,7 +31,7 @@ python3 -m pip install gotwo -i https://pypi.python.org/simple
 🌵 Ctrl+c  - Quit
 🚀 Connecting to ...
 HostName        Address         User      
-bcc             106.12.17.243   root                                            
-dahe            125.46.11.200   dahe           
-ecs2            106.15.39.96    root  
+bcc             6.2.7.3         root                                            
+dahe            125.6.1.2       dahe           
+ecs2            10.15.3.6       root  
 ```
