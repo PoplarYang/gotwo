@@ -9,11 +9,11 @@ Read configration from `$HOME/.ssh/config`.
 > only supports python3.
 
 ```python
-pip install gto
+pip install gotwo
 ```
 or  
 ```python
-python3 -m pip install gto -i https://pypi.python.org/simple
+python3 -m pip install gotwo -i https://pypi.python.org/simple
 ```
 
 ## Usages

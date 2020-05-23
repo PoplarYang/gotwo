@@ -13,7 +13,7 @@ with open('README.md', 'r') as fd:
     long_description = fd.read()
 
 _locals = {}
-with open('gto/version.py') as fd:
+with open('gotwo/version.py') as fd:
     exec(fd.read(), None, _locals)
 version = _locals['__version__']
 
@@ -33,7 +33,7 @@ setuptools.setup(
     # specification here:
     # https://packaging.python.org/specifications/core-metadata/#name
     # Required
-    name = 'gto',
+    name = 'gotwo',
 
     # Versions should comply with PEP 440:
     # https://www.python.org/dev/peps/pep-0440/
@@ -79,7 +79,7 @@ setuptools.setup(
     # This field corresponds to the 'Home-Page' metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
     # Optional
-    url = 'https://github.com/PoplarYang/gto',
+    url = 'https://github.com/PoplarYang/gotwo',
 
     # This should be your name or the name of the organization which owns the
     # project.
@@ -101,7 +101,7 @@ setuptools.setup(
     #   py_modules=['my_module'],
     #
     # Required
-    packages = ['gto'],
+    packages = ['gotwo'],
     #packages=setuptools.find_packages(),
     
     # This field lists other packages that your project depends on to run.
@@ -128,7 +128,7 @@ setuptools.setup(
     # Optional
     entry_points={
         'console_scripts': [
-            'gto=gto:main'
+            'goto=gotwo:main'
         ],
     },
 
@@ -190,7 +190,7 @@ setuptools.setup(
     #
     # Note that this is a string of words separated by whitespace, not a list.
     # Optional
-    keywords = 'ssh linux', 
+    keywords = 'ssh linux macos', 
 
     # When your source code is in a subdirectory under the project root, e.g.
     # `src/`, it is necessary to specify the `package_dir` argument.
