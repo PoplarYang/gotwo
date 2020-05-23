@@ -2,6 +2,8 @@
 
 It's only a lite tool.
 
+![](https://github.com/PoplarYang/gotwo/workflows/Upload%20Python%20Package%20gotwo/badge.svg)
+
 ## Principle
 Read configration from `$HOME/.ssh/config`.
 
